@@ -30,40 +30,6 @@ export const Content = styled.div`
       color: #1a1e2c;
     }
 
-    input {
-      background: #d5cdf1;
-      border-radius: 10px;
-      border: 2px solid #232129;
-      padding: 16px;
-      width: 100%;
-      color: #1a1e2c;
-
-      &::placeholder {
-        color: #1a1e2c;
-      }
-
-      & + input {
-        margin-top: 8px;
-      }
-    }
-
-    button {
-      background: #a18de7;
-      height: 56px;
-      border-radius: 10px;
-      border: 0;
-      padding: 0 16px;
-      color: #312e38;
-      width: 100%;
-      font-weight: 500;
-      margin-top: 16px;
-      transition: background-color 0.2s;
-
-      &:hover {
-        background: ${shade(0.2, '#A18DE7')};
-      }
-    }
-
     a {
       font-size: 20px;
       color: #a18de7;
