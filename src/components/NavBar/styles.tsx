@@ -8,6 +8,7 @@ export const Container = styled.div`
   margin: 1em;
   color: #000000;
   border-radius: 10px;
+  box-shadow: #c0c0c0 1px 1px;
 
   #logo {
     border-radius: 10px;

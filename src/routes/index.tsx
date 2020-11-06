@@ -7,6 +7,7 @@ import SignIn from '../pages/SignIn';
 import SignUp from '../pages/SignUp';
 
 import Dashboard from '../pages/Dashboard';
+import DashboardRestaurant from '../pages/DashboardRestaurant';
 
 const Routes: React.FC = () => (
   <Switch>
@@ -15,6 +16,7 @@ const Routes: React.FC = () => (
 
     {/* <Route path="/dashboard" component={Dashboard} isPrivate /> */}
     <Route path="/dashboard" component={Dashboard} />
+    <Route path="/restaurante" component={DashboardRestaurant} />
   </Switch>
 );
 
