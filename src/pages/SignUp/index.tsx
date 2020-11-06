@@ -8,7 +8,6 @@ import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 import { useToast } from '../../hooks/toast';
-import 'yup-phone';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -23,7 +22,7 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
-  cellphone: string;
+  phone: string;
 }
 
 const SignUp: React.FC = () => {
@@ -36,17 +35,13 @@ const SignUp: React.FC = () => {
       try {
         formRef.current?.setErrors({});
 
-        // const phone = /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
-
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-          cellphone: Yup.string()
-            .required('Telefone obrigatório')
-            .matches('Número de telefone invalido'),
+          phone: Yup.string().required('Telefone obrigatório'),
         });
 
         await schema.validate(data, {
