@@ -8,6 +8,7 @@ import { Link, useHistory } from 'react-router-dom';
 import api from '../../services/api';
 
 import { useToast } from '../../hooks/toast';
+import 'yup-phone';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
@@ -22,7 +23,7 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
-  phone: string;
+  cellphone: string;
 }
 
 const SignUp: React.FC = () => {
@@ -35,13 +36,17 @@ const SignUp: React.FC = () => {
       try {
         formRef.current?.setErrors({});
 
+        // const phone = /^((\\+[1-9]{1,4}[ \\-])|(\\([0-9]{2,3}\\)[ \\-])|([0-9]{2,4})[ \\-])?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
         const schema = Yup.object().shape({
           name: Yup.string().required('Nome obrigatório'),
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-          phone: Yup.string().required('Telefone obrigatório'),
+          cellphone: Yup.string()
+            .required('Telefone obrigatório')
+            .matches('Número de telefone invalido'),
         });
 
         await schema.validate(data, {
@@ -55,7 +60,7 @@ const SignUp: React.FC = () => {
         addToast({
           type: 'success',
           title: 'Cadastro realizado!',
-          description: 'Você já pode fazer seu logon no GoBarber!',
+          description: 'Você já pode fazer seu logon no Popina!',
         });
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
@@ -82,7 +87,7 @@ const SignUp: React.FC = () => {
 
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="GoBarber" />
+          <img src={logoImg} alt="logo" />
 
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu cadastro</h1>
