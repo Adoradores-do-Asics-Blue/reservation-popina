@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiPhone } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -22,6 +22,7 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
+  phone: string;
 }
 
 const SignUp: React.FC = () => {
@@ -40,6 +41,7 @@ const SignUp: React.FC = () => {
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+          phone: Yup.string().required('Telefone obrigatório'),
         });
 
         await schema.validate(data, {
@@ -93,7 +95,7 @@ const SignUp: React.FC = () => {
               type="password"
               placeholder="Senha"
             />
-
+            <Input name="phone" icon={FiPhone} placeholder="Telefone" />
             <Button type="submit">Cadastrar</Button>
           </Form>
 
