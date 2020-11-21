@@ -58,7 +58,7 @@ const AppointmentDatePicker: React.FC = () => {
   const minimumDate = useMemo(() => {
     const today = new Date();
 
-    if (today.getHours() >= 17) {
+    if (today.getHours() >= 23) {
       return new Date(today.setDate(today.getDate() + 1));
     }
 
@@ -141,9 +141,9 @@ const AppointmentDatePicker: React.FC = () => {
     <>
       <Header>
         <BackButton onPress={() => navigation.goBack()}>
-          <Icon name="chevron-left" size={24} color="#999591" />
+          <Icon name="chevron-left" size={30} color="#000" />
         </BackButton>
-        <HeaderTitle>Cabelereiros</HeaderTitle>
+        <HeaderTitle>Agendamento</HeaderTitle>
 
         <UserAvatar source={{ uri: user.avatar_url }} />
       </Header>
@@ -175,7 +175,7 @@ const AppointmentDatePicker: React.FC = () => {
             display="calendar"
             value={selectedDate}
             onChange={(_, date) => date && setSelectedDate(date)}
-            textColor="#f4ede8"
+            textColor="#000"
             minimumDate={minimumDate}
           />
         </Calendar>
@@ -203,7 +203,7 @@ const AppointmentDatePicker: React.FC = () => {
           </Section>
 
           <Section>
-            <SectionTitle>Tarde</SectionTitle>
+            <SectionTitle>Tarde e Noite</SectionTitle>
 
             <SectionContent>
               {afternoonAvailability.map(

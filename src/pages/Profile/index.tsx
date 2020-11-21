@@ -6,6 +6,7 @@ import {
   Platform,
   TextInput,
   Alert,
+  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';

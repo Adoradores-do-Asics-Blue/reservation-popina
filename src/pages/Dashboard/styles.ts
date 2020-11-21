@@ -11,7 +11,7 @@ export const Container = styled.View`
 export const Header = styled.View`
   padding: 24px;
   padding-top: ${getStatusBarHeight() + 24}px;
-  background: #28262e;
+  background: #a18de7;
 
   flex-direction: row;
   justify-content: space-between;
@@ -19,14 +19,14 @@ export const Header = styled.View`
 `;
 
 export const HeaderTitle = styled.Text`
-  color: #f4ede8;
+  color: #232129;
   font-size: 20px;
   font-family: 'RobotoSlab-Regular';
   line-height: 28px;
 `;
 
 export const UserName = styled.Text`
-  color: #ff9000;
+  color: #232129;
   font-family: 'RobotoSlab-Medium';
 `;
 
@@ -50,7 +50,7 @@ export const ProvidersList = styled(
 
 export const ProvidersListTitle = styled.Text`
   font-family: 'RobotoSlab-Medium';
-  color: #f4ede8;
+  color: #232129;
   font-size: 24px;
   margin-bottom: 24px;
 `;

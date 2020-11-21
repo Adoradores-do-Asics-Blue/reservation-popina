@@ -33,7 +33,7 @@ export const Container = styled.ScrollView.attrs({
 export const Header = styled.View`
   padding: 24px;
   padding-top: ${getStatusBarHeight() + 24}px;
-  background: #28262e;
+  background: #a18de7;
 
   flex-direction: row;
   align-items: center;
@@ -77,7 +77,7 @@ export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`
   padding: 8px 12px;
   margin-right: 16px;
 
-  background: ${(props) => (props.selected ? '#FF9000' : '#3e3b47')};
+  background: ${(props) => (props.selected ? '#a18de7' : '#3e3b47')};
   border-radius: 10px;
 `;
 
@@ -113,7 +113,7 @@ export const Section = styled.View`
 
 export const SectionTitle = styled.Text`
   font-size: 18px;
-  color: #999591;
+  color: #000;
   font-family: 'RobotoSlab-Regular';
   margin: 0 24px 12px;
 `;
@@ -130,7 +130,7 @@ export const Hour = styled(RectButton).attrs((props: HourProps) => ({
   enabled: props.available,
 }))<HourProps>`
   padding: 12px;
-  background: ${(props) => (props.selected ? '#FF9000' : '#3e3b47')};
+  background: ${(props) => (props.selected ? '#a18de7' : '#3e3b47')};
   border-radius: 10px;
   margin-right: 8px;
 
@@ -144,7 +144,7 @@ export const HourText = styled.Text<HourTextProps>`
 `;
 
 export const CreateAppointmentButton = styled(RectButton)`
-  background: #ff9000;
+  background: #a18de7;
   border-radius: 10px;
   height: 50px;
   margin: 0 24px 24px;
