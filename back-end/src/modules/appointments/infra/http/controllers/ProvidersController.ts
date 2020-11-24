@@ -10,9 +10,13 @@ export default class ProvidersController {
 
     const listProviders = container.resolve(ListProvidersService);
 
-    const providers = await listProviders.execute({
+    const allProviders = await listProviders.execute({
       user_id,
     });
+
+    const providers = allProviders.filter(
+      provider => provider.restaurant === 'true',
+    );
 
     return response.json(classToClass(providers));
   }

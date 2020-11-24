@@ -25,6 +25,9 @@ class User {
   password: string;
 
   @Column()
+  restaurant: string;
+
+  @Column()
   avatar: string;
 
   @CreateDateColumn()

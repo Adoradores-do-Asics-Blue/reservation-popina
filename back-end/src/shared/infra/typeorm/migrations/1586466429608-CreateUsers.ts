@@ -27,6 +27,12 @@ export default class CreateUsers1586466429608 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'restaurant',
+            type: 'varchar',
+            isNullable: true,
+            default: 'false',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',
