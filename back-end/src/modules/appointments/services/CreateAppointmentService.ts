@@ -35,14 +35,14 @@ class CreateAppointmentService {
     const appointmentDate = startOfHour(date);
 
     if (isBefore(appointmentDate, Date.now())) {
-      throw new AppError("You can't create an appointemnt on a past date.");
+      throw new AppError("You can't create an appointment on a past date.");
     }
 
     if (user_id === provider_id) {
       throw new AppError("You can't create an appointment with yourself.");
     }
 
-    if (getHours(appointmentDate) < 6 || getHours(appointmentDate) > 23) {
+    if (getHours(appointmentDate) < 6 || getHours(appointmentDate) > 20) {
       throw new AppError(
         'You can only create appointments between 6am and 23pm',
       );

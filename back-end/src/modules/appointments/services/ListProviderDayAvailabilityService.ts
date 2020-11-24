@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { getHours, isAfter } from 'date-fns';
+import { isAfter } from 'date-fns';
 
 import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
@@ -28,10 +28,10 @@ class ListProviderDayAvailabilityService {
     month,
     day,
   }: IRequest): Promise<IResponse> {
-    const hourStart = 8;
+    const hourStart = 6;
 
     const eachHourArray = Array.from(
-      { length: 100 },
+      { length: 14 },
       (_, index) => index + hourStart,
     );
 
