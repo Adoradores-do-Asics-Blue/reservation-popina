@@ -22,6 +22,7 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
+  restaurant: string;
 }
 
 const SignUp: React.FC = () => {
@@ -42,11 +43,20 @@ const SignUp: React.FC = () => {
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
         });
 
-        await schema.validate(data, {
+        const { name, email, password } = data;
+
+        const userRestaurant: SignUpFormData = {
+          name,
+          email,
+          password,
+          restaurant: 'true',
+        };
+
+        await schema.validate(userRestaurant, {
           abortEarly: false,
         });
 
-        await api.post('/users', data);
+        await api.post('/users', userRestaurant);
 
         history.push('/');
 
