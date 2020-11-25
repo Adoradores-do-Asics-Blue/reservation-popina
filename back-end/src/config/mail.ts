@@ -14,8 +14,8 @@ export default {
 
   defaults: {
     from: {
-      email: 'diego@rocketseat.com.br',
-      name: 'Diego da Rocketseat',
+      email: 'reservatio@popina.com.br',
+      name: 'Ricardo da Popina',
     },
   },
 } as IMailConfig;
