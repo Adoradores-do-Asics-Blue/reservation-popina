@@ -28,6 +28,9 @@ class User {
   restaurant: string;
 
   @Column()
+  whatsapp: string;
+
+  @Column()
   avatar: string;
 
   @CreateDateColumn()

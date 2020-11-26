@@ -11,6 +11,7 @@ interface IRequest {
   name: string;
   email: string;
   password: string;
+  whatsapp?: string;
   restaurant?: string;
 }
 
@@ -31,6 +32,7 @@ class CreateUserService {
     name,
     email,
     password,
+    whatsapp,
     restaurant,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
@@ -45,6 +47,7 @@ class CreateUserService {
       name,
       email,
       password: hashedPassword,
+      whatsapp,
       restaurant,
     });
 
