@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useMemo } from 'react';
-import { isToday, format, parseISO, isAfter } from 'date-fns';
+import { isToday, format, parseISO } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 import DayPicker, { DayModifiers } from 'react-day-picker';
 import 'react-day-picker/lib/style.css';
@@ -13,13 +13,13 @@ import {
   Profile,
   Content,
   Schedule,
-  NextAppointment,
   Section,
   Appointment,
   Calendar,
 } from './styles';
 
 import logoImg from '../../assets/Logosemicone.svg';
+import whatsappIcon from '../../assets/whatsapp.svg';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 
@@ -35,11 +35,13 @@ interface Appointment {
   user: {
     name: string;
     avatar_url: string;
+    whatsapp: string;
   };
 }
 
 const Dashboard: React.FC = () => {
   const { user, signOut } = useAuth();
+  const whatsapp = `5511957123132`;
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -129,12 +131,6 @@ const Dashboard: React.FC = () => {
     });
   }, [appointments]);
 
-  const nextAppointment = useMemo(() => {
-    return appointments.find(appointment =>
-      isAfter(parseISO(appointment.date), new Date()),
-    );
-  }, [appointments]);
-
   return (
     <Container>
       <Header>
@@ -166,24 +162,6 @@ const Dashboard: React.FC = () => {
             <span>{selectedWeekDay}</span>
           </p>
 
-          {isToday(selectedDate) && nextAppointment && (
-            <NextAppointment>
-              <strong>Agendamento a seguir</strong>
-              <div>
-                <img
-                  src={nextAppointment.user.avatar_url}
-                  alt={nextAppointment.user.name}
-                />
-
-                <strong>{nextAppointment.user.name}</strong>
-                <span>
-                  <FiClock />
-                  {nextAppointment.hourFormatted}
-                </span>
-              </div>
-            </NextAppointment>
-          )}
-
           <Section>
             <strong>Manhã</strong>
 
@@ -205,6 +183,15 @@ const Dashboard: React.FC = () => {
                   />
 
                   <strong>{appointment.user.name}</strong>
+                  <a
+                    className="whatsapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // onClick={createNewConnection}
+                    href={`https://wa.me/${whatsapp}`}
+                  >
+                    <img src={whatsappIcon} alt="Whatsapp" />
+                  </a>
                 </div>
               </Appointment>
             ))}
@@ -231,6 +218,15 @@ const Dashboard: React.FC = () => {
                   />
 
                   <strong>{appointment.user.name}</strong>
+                  <a
+                    className="whatsapp"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // onClick={createNewConnection}
+                    href={`https://wa.me/${appointment.user.whatsapp}`}
+                  >
+                    <img src={whatsappIcon} alt="Whatsapp" />
+                  </a>
                 </div>
               </Appointment>
             ))}
