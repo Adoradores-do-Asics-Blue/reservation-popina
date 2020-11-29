@@ -18,7 +18,7 @@ import {
   Calendar,
 } from './styles';
 
-import logoImg from '../../assets/Logosemicone.svg';
+import logoImg from '../../assets/LogoDashboard.svg';
 import whatsappIcon from '../../assets/whatsapp.svg';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -41,7 +41,6 @@ interface Appointment {
 
 const Dashboard: React.FC = () => {
   const { user, signOut } = useAuth();
-  const whatsapp = `5511957123132`;
 
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [currentMonth, setCurrentMonth] = useState(new Date());
@@ -188,7 +187,7 @@ const Dashboard: React.FC = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     // onClick={createNewConnection}
-                    href={`https://wa.me/${whatsapp}`}
+                    href={`https://wa.me/${appointment.user.whatsapp}`}
                   >
                     <img src={whatsappIcon} alt="Whatsapp" />
                   </a>

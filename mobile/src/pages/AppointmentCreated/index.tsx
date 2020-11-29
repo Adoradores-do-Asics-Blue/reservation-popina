@@ -5,13 +5,7 @@ import { useRoute, useNavigation } from '@react-navigation/native';
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
-import {
-  Container,
-  Title,
-  Description,
-  OkButton,
-  OkButtonText,
-} from './styles';
+import { Container, Title, OkButton, OkButtonText } from './styles';
 
 interface RouteParams {
   date: number;
@@ -39,14 +33,13 @@ const AppointmentCreated: React.FC = () => {
         },
       ],
     });
-  }, [navigation]); // teste[]
+  }, [navigation]);
 
   return (
     <Container>
       <Icon name="check" size={80} color="#000" />
 
       <Title>Agendamento concluído</Title>
-      <Description>{formattedDate}</Description>
 
       <OkButton onPress={handleOk}>
         <OkButtonText>Ok</OkButtonText>

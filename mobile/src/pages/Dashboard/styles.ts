@@ -23,6 +23,7 @@ export const HeaderTitle = styled.Text`
   font-size: 20px;
   font-family: 'RobotoSlab-Regular';
   line-height: 28px;
+  margin-right: 40%;
 `;
 
 export const UserName = styled.Text`

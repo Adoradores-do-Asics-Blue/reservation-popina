@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/Logosemicone.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -91,7 +91,7 @@ const ForgotPassword: React.FC = () => {
             </Button>
           </Form>
 
-          <Link to="/signin">
+          <Link to="/">
             <FiLogIn />
             Voltar ao login
           </Link>

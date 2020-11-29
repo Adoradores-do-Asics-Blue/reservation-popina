@@ -149,6 +149,7 @@ export const Appointment = styled.div`
     background: #612f74;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 16px 24px;
     border-radius: 10px;
     margin-left: 24px;
@@ -163,6 +164,8 @@ export const Appointment = styled.div`
       margin-left: 24px;
       color: #000;
       font-size: 20px;
+      font-weight: bold;
+      font-family: sans-serif;
     }
   }
 

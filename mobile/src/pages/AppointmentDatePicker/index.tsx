@@ -100,7 +100,7 @@ const AppointmentDatePicker: React.FC = () => {
     try {
       const date = new Date(selectedDate);
 
-      date.setHours(selectedHour);
+      date.setHours(selectedHour + 1);
       date.setMinutes(0);
 
       await api.post('appointments', {

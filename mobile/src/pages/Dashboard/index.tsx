@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import React, { useState, useEffect, useCallback } from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 
 import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
 import api from '../../services/api';
 import { useAuth } from '../../hooks/auth';
 import {
@@ -48,14 +50,15 @@ const Dashboard: React.FC = () => {
   return (
     <Container>
       <Header>
+        <ProfileButton onPress={() => navigation.navigate('Profile')}>
+          <UserAvatar source={{ uri: user.avatar_url }} />
+        </ProfileButton>
+
         <HeaderTitle>
           Bem vindo, {'\n'}
           <UserName>{user.name}</UserName>
         </HeaderTitle>
-
-        <ProfileButton onPress={() => navigation.navigate('Profile')}>
-          <UserAvatar source={{ uri: user.avatar_url }} />
-        </ProfileButton>
+        <Icon name="log-out" onPress={signOut} style={styles.icon} />
       </Header>
 
       <ProvidersList
@@ -85,5 +88,11 @@ const Dashboard: React.FC = () => {
     </Container>
   );
 };
+
+const styles = StyleSheet.create({
+  icon: {
+    fontSize: 25,
+  },
+});
 
 export default Dashboard;

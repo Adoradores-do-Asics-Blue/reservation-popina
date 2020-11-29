@@ -1,6 +1,5 @@
 import React, { useCallback, useRef } from 'react';
 import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
-import { FaWhatsapp } from 'react-icons/fa';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -23,7 +22,6 @@ interface SignUpFormData {
   name: string;
   email: string;
   password: string;
-  whatsapp: string;
   restaurant: string;
 }
 
@@ -46,13 +44,12 @@ const SignUp: React.FC = () => {
           whatsapp: Yup.string().required('Whatsapp é obrigatório'),
         });
 
-        const { name, email, password, whatsapp } = data;
+        const { name, email, password } = data;
 
         const userRestaurant: SignUpFormData = {
           name,
           email,
           password,
-          whatsapp,
           restaurant: 'true',
         };
 
@@ -101,11 +98,6 @@ const SignUp: React.FC = () => {
 
             <Input name="name" icon={FiUser} placeholder="Nome" />
             <Input name="email" icon={FiMail} placeholder="E-mail" />
-            <Input
-              name="whatsapp"
-              icon={FaWhatsapp}
-              placeholder="5511912345678"
-            />
             <Input
               name="password"
               icon={FiLock}
