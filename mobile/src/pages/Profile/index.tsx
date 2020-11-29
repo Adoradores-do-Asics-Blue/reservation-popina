@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useRef, useCallback } from 'react';
 import {
   View,
@@ -6,12 +7,13 @@ import {
   Platform,
   TextInput,
   Alert,
-  Image,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
+import Icon from 'react-native-vector-icons/Feather';
+import ImagePicker from 'react-native-image-picker';
 
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
@@ -21,16 +23,24 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
-import { Container, Title, Avatar } from './styles';
+import {
+  Container,
+  Title,
+  Avatar,
+  UserAvatarButton,
+  BackButton,
+} from './styles';
 
 interface ProfileFormData {
   name: string;
   email: string;
   password: string;
+  old_password: string;
+  password_confirmation: string;
 }
 
 const Profile: React.FC = () => {
-  const { user } = useAuth();
+  const { user, updateUser } = useAuth();
   const formRef = useRef<FormHandles>(null);
   const navigation = useNavigation();
 
@@ -38,6 +48,38 @@ const Profile: React.FC = () => {
   const passwordInputRef = useRef<TextInput>(null);
   const newPasswordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
+
+  const handleUpdateAvatar = useCallback(() => {
+    ImagePicker.showImagePicker(
+      {
+        title: 'Selecione um avatar',
+        cancelButtonTitle: 'Cancelar',
+        takePhotoButtonTitle: 'Usar câmera',
+        chooseFromLibraryButtonTitle: 'Escolher da galeria',
+      },
+      (response) => {
+        if (response.didCancel) {
+          return;
+        }
+
+        if (response.error) {
+          Alert.alert('Error ao atualizar seu avatar.');
+        }
+
+        const data = new FormData();
+
+        data.append('avatar', {
+          type: 'image/jpeg',
+          name: `${user.id}.jpg`,
+          uri: response.uri,
+        });
+
+        api.patch('users/avatar', data).then((apiResponse) => {
+          updateUser(apiResponse.data);
+        });
+      },
+    );
+  }, [updateUser, user.id]);
 
   const handleSaveProfile = useCallback(async (data: ProfileFormData) => {
     try {
@@ -67,12 +109,34 @@ const Profile: React.FC = () => {
         abortEarly: false,
       });
 
-      console.log(data);
+      const {
+        name,
+        email,
+        old_password,
+        password,
+        password_confirmation,
+      } = data;
 
-      Alert.alert(
-        'Perfil atualizado com sucesso!',
-        'As informações do perfil foram atualizadas.',
-      );
+      const formData = {
+        name,
+        email,
+        ...(old_password
+          ? {
+            old_password,
+            password,
+            password_confirmation,
+          }
+          : {}),
+      };
+
+      const response = await api.put('profile', formData);
+
+      updateUser(response.data);
+
+      Alert.alert('Perfil atualizado com sucesso!');
+
+      navigation.goBack();
+
     } catch (err) {
       if (err instanceof Yup.ValidationError) {
         const errors = getValidationErrors(err);
@@ -83,11 +147,15 @@ const Profile: React.FC = () => {
       }
 
       Alert.alert(
-        'Erro no cadastro',
-        'Ocorreu um erro ao fazer cadastro, tente novamente.',
+        'Erro na atualização do perfil',
+        'Ocorreu um erro ao atualizar seu perfil, tente novamente.',
       );
     }
-  }, []);
+  }, [navigation, updateUser]);
+
+  const handleGoBack = useCallback(() => {
+    navigation.goBack();
+  }, [navigation]);
 
   return (
     <>
@@ -101,7 +169,13 @@ const Profile: React.FC = () => {
           contentContainerStyle={{ flex: 1 }}
         >
           <Container>
-            <Avatar source={{ uri: user.avatar_url }} />
+            <BackButton onPress={handleGoBack}>
+              <Icon name="chevron-left" size={40} color="#999591" />
+            </BackButton>
+
+            <UserAvatarButton onPress={handleUpdateAvatar}>
+              <Avatar source={{ uri: user.avatar_url }} />
+            </UserAvatarButton>
 
             <View>
               <Title>Atualizar perfil</Title>

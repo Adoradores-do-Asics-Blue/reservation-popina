@@ -9,15 +9,24 @@ export const Container = styled.View`
 
 export const Title = styled.Text`
   font-size: 24px;
-  color: #f4ede8;
+  color: #000;
   font-family: 'RobotoSlab-Medium';
-  margin: 24px 0;
+  margin: 15px auto;
+`;
+
+export const BackButton = styled.TouchableOpacity`
+  position: absolute;
+  top: 20px;
+  left: 5px;
+`;
+
+export const UserAvatarButton = styled.TouchableOpacity`
+  margin-top: 150px;
 `;
 
 export const Avatar = styled.Image`
   width: 186px;
   height: 186px;
   border-radius: 98px;
-  margin-top: 64px;
   align-self: center;
 `;
