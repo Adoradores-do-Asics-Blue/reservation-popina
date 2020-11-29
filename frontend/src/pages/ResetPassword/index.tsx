@@ -1,14 +1,14 @@
 import React, { useRef, useCallback } from 'react';
-import { FiLock } from 'react-icons/fi';
+import { FiLock, FiLogIn } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
-import { useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import { useToast } from '../../hooks/toast';
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/logo.svg';
+import logoImg from '../../assets/Logosemicone.svg';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -104,6 +104,11 @@ const SignIn: React.FC = () => {
 
             <Button type="submit">Alterar senha</Button>
           </Form>
+
+          <Link to="/">
+            <FiLogIn />
+            Voltar ao login
+          </Link>
         </AnimationContainer>
       </Content>
 
