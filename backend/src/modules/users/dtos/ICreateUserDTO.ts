@@ -4,4 +4,6 @@ export default interface ICreateUserDTO {
   password: string;
   whatsapp?: string;
   restaurant?: string;
+  openingHours?: number;
+  finishingHours?: number;
 }

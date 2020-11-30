@@ -23,6 +23,8 @@ usersRouter.post(
       password: Joi.string().required(),
       whatsapp: Joi.string(),
       restaurant: Joi.string(),
+      openingHours: Joi.number().max(23).min(0),
+      finishingHours: Joi.number().max(23).min(0),
     },
   }),
   usersController.create,

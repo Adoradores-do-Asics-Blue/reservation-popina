@@ -42,11 +42,11 @@ class CreateAppointmentService {
       throw new AppError("You can't create an appointment with yourself.");
     }
 
-    if (getHours(appointmentDate) < 6 || getHours(appointmentDate) > 20) {
-      throw new AppError(
-        'You can only create appointments between 6am and 23pm',
-      );
-    }
+    // if (getHours(appointmentDate) < 6 || getHours(appointmentDate) > 20) {
+    //   throw new AppError(
+    //     'You can only create appointments between 6am and 23pm',
+    //   );
+    // }
 
     const appointment = await this.appointmentsRepository.create({
       provider_id,

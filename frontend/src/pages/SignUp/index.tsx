@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail, FiUser, FiLock } from 'react-icons/fi';
+import { FiArrowLeft, FiMail, FiUser, FiLock, FiClock } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -23,6 +23,8 @@ interface SignUpFormData {
   email: string;
   password: string;
   restaurant: string;
+  finishingHour: number;
+  openingHour: number;
 }
 
 const SignUp: React.FC = () => {
@@ -41,15 +43,19 @@ const SignUp: React.FC = () => {
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
+          finishingHour: Yup.number().required(),
+          openingHour: Yup.number().required(),
         });
 
-        const { name, email, password } = data;
+        const { name, email, password, openingHour, finishingHour } = data;
 
         const userRestaurant: SignUpFormData = {
           name,
           email,
           password,
           restaurant: 'true',
+          openingHour,
+          finishingHour,
         };
 
         await schema.validate(userRestaurant, {
@@ -102,6 +108,18 @@ const SignUp: React.FC = () => {
               icon={FiLock}
               type="password"
               placeholder="Senha"
+            />
+            <Input
+              name="openingHour"
+              icon={FiClock}
+              type="number"
+              placeholder="Hora de abertura"
+            />
+            <Input
+              name="finishingHour"
+              icon={FiClock}
+              type="number"
+              placeholder="Hora de fechar"
             />
             <Button type="submit">Cadastrar</Button>
           </Form>

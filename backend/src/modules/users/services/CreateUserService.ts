@@ -13,6 +13,8 @@ interface IRequest {
   password: string;
   whatsapp?: string;
   restaurant?: string;
+  openingHours?: number;
+  finishingHours?: number;
 }
 
 @injectable()
@@ -34,6 +36,8 @@ class CreateUserService {
     password,
     whatsapp,
     restaurant,
+    openingHours,
+    finishingHours,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
@@ -49,6 +53,8 @@ class CreateUserService {
       password: hashedPassword,
       whatsapp,
       restaurant,
+      openingHours,
+      finishingHours,
     });
 
     await this.cacheProvider.invalidatePrefix('providers-list');

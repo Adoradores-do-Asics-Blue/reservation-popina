@@ -31,6 +31,12 @@ class User {
   whatsapp: string;
 
   @Column()
+  openingHours: number;
+
+  @Column()
+  finishingHours: number;
+
+  @Column()
   avatar: string;
 
   @CreateDateColumn()
