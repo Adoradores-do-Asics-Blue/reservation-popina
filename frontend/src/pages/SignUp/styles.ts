@@ -33,18 +33,13 @@ export const AnimationContainer = styled.div`
 
   animation: ${appearFromRight} 1s;
 
-  img {
-    position: relative;
-    margin-top: 10px;
-  }
-
   form {
-    margin: 60px 0;
+    margin: 30px 0;
     width: 340px;
     text-align: center;
 
     h1 {
-      margin-bottom: 30px;
+      margin-bottom: 20px;
       color: #1a1e2c;
     }
 
@@ -52,7 +47,7 @@ export const AnimationContainer = styled.div`
       font-size: 20px;
       color: #a18de7;
       display: block;
-      margin-top: 24px;
+      margin-top: 20px;
       text-decoration: none;
       transition: color 0.2s;
 

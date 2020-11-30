@@ -11,8 +11,6 @@ import { useToast } from '../../hooks/toast';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 
-import logoImg from '../../assets/Logosemicone.svg';
-
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 
@@ -23,8 +21,8 @@ interface SignUpFormData {
   email: string;
   password: string;
   restaurant: string;
-  finishingHour: number;
-  openingHour: number;
+  openingHours: number;
+  finishingHours: number;
 }
 
 const SignUp: React.FC = () => {
@@ -43,20 +41,38 @@ const SignUp: React.FC = () => {
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-          finishingHour: Yup.number().required(),
-          openingHour: Yup.number().required(),
+          openingHours: Yup.number()
+            .positive('deve ser positivo')
+            .moreThan(0, 'Deve ser maior que 0')
+            .lessThan(23, 'Deve ser menor do que 23')
+            .integer('Deve ser um número inteiro entre 0 e 23'),
+          finishingHours: Yup.number()
+            .positive('deve ser positivo')
+            .moreThan(0, 'Deve ser maior que 0')
+            .lessThan(23, 'Deve ser menor do que 23')
+            .integer('Deve ser um número inteiro entre 0 e 23'),
         });
 
-        const { name, email, password, openingHour, finishingHour } = data;
+        const { name, email, password, openingHours, finishingHours } = data;
+
+        const start = Number(openingHours);
+        const finish = Number(finishingHours);
+
+        const numberStartFinish = {
+          start,
+          finish,
+        };
 
         const userRestaurant: SignUpFormData = {
           name,
           email,
           password,
           restaurant: 'true',
-          openingHour,
-          finishingHour,
+          openingHours: numberStartFinish.start,
+          finishingHours: numberStartFinish.finish,
         };
+
+        console.log(userRestaurant);
 
         await schema.validate(userRestaurant, {
           abortEarly: false,
@@ -96,8 +112,6 @@ const SignUp: React.FC = () => {
 
       <Content>
         <AnimationContainer>
-          <img src={logoImg} alt="logo" />
-
           <Form ref={formRef} onSubmit={handleSubmit}>
             <h1>Faça seu cadastro</h1>
 
@@ -110,16 +124,16 @@ const SignUp: React.FC = () => {
               placeholder="Senha"
             />
             <Input
-              name="openingHour"
+              name="openingHours"
               icon={FiClock}
-              type="number"
-              placeholder="Hora de abertura"
+              type="tel"
+              placeholder="horário de abertura"
             />
             <Input
-              name="finishingHour"
+              name="finishingHours"
               icon={FiClock}
-              type="number"
-              placeholder="Hora de fechar"
+              type="tel"
+              placeholder="horário de fechamento"
             />
             <Button type="submit">Cadastrar</Button>
           </Form>
