@@ -42,14 +42,13 @@ export const Div = styled.div`
     height: 25px;
     width: 50px;
     font-size: 15px;
-    background: #fff;
+    background: #1a1e2c;
     border: 1px solid #d3e2e5;
-    color: #a18de7;
+    color: #fff;
     cursor: pointer;
   }
 
   button.active {
-    background: #fff;
     border: 1px solid #a18de7;
     color: #a18de7;
   }
