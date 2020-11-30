@@ -25,6 +25,47 @@ const appearFromRight = keyframes`
   to { opacity: 1; transform: translateX(0); }
 `;
 
+export const Div = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+  width: 100%;
+
+  p {
+    color: #000;
+    font-weight: bold;
+    font-family: sans-serif;
+  }
+
+  button {
+    height: 25px;
+    width: 50px;
+    font-size: 15px;
+    background: #fff;
+    border: 1px solid #d3e2e5;
+    color: #a18de7;
+    cursor: pointer;
+  }
+
+  button.active {
+    background: #fff;
+    border: 1px solid #a18de7;
+    color: #a18de7;
+  }
+
+  .button-select button:first-child {
+    border-radius: 20px 0px 0px 20px;
+  }
+
+  .button-select button:last-child {
+    border-radius: 0 20px 20px 0;
+    border-left: 0;
+  }
+`;
+
+export const Btn = styled.div``;
+
 export const AnimationContainer = styled.div`
   display: flex;
   flex-direction: column;
