@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { isAfter } from 'date-fns';
+import { getHours, isAfter } from 'date-fns';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
@@ -30,14 +30,23 @@ class ListProviderDayAvailabilityService {
 
   public async execute({
     provider_id,
-    user_id,
     year,
     month,
     day,
+    user_id,
   }: IRequest): Promise<IResponse> {
     const users = await this.usersRepository.findAllProviders({
       except_user_id: user_id,
     });
+
+    // const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
+    //   {
+    //     provider_id,
+    //     year,
+    //     month,
+    //     day,
+    //   },
+    // );
 
     if (!users) {
       throw new AppError('User not found.');
@@ -55,13 +64,18 @@ class ListProviderDayAvailabilityService {
     const currentDate = new Date(Date.now());
 
     const availability = eachHourArray.map(hour => {
+      // const hasAppointmentInHour = appointments.find(
+      //   appointment => getHours(appointment.date) === hour,
+      // );
+
       const compareDate = new Date(year, month - 1, day, hour);
 
       return {
         hour,
-        available: isAfter(compareDate, currentDate),
+        available: !isAfter(compareDate, currentDate),
       };
     });
+
     return availability;
   }
 }
