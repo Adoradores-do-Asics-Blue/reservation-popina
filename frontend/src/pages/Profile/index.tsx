@@ -1,5 +1,12 @@
 import React, { useCallback, useRef, ChangeEvent } from 'react';
-import { FiMail, FiUser, FiLock, FiCamera, FiArrowLeft } from 'react-icons/fi';
+import {
+  FiMail,
+  FiUser,
+  FiLock,
+  FiCamera,
+  FiArrowLeft,
+  FiClock,
+} from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -23,6 +30,8 @@ interface ProfileFormData {
   old_password: string;
   password: string;
   password_confirmation: string;
+  openingHours: number;
+  finishingHours: number;
 }
 
 const Profile: React.FC = () => {
@@ -42,6 +51,16 @@ const Profile: React.FC = () => {
           email: Yup.string()
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
+          openingHours: Yup.number()
+            .required('Hora de abrir é obrigatório')
+            .min(0, 'Deve ser maior que 0')
+            .max(23, 'Deve ser menor que 23')
+            .integer('Deve ser um número inteiro entre 0 e 23'),
+          finishingHours: Yup.number()
+            .required('Hora de fechar é obrigatório')
+            .min(0, 'Deve ser maior que 0')
+            .max(23, 'Deve ser menor que 23')
+            .integer('Deve ser um número inteiro entre 0 e 23'),
           old_password: Yup.string(),
           password: Yup.string().when('old_password', {
             is: val => !!val.length,
@@ -67,19 +86,25 @@ const Profile: React.FC = () => {
           old_password,
           password,
           password_confirmation,
+          openingHours,
+          finishingHours,
         } = data;
 
         const formData = {
           name,
           email,
+          openingHours,
+          finishingHours,
           ...(old_password
             ? {
-                old_password,
-                password,
-                password_confirmation,
-              }
+              old_password,
+              password,
+              password_confirmation,
+            }
             : {}),
         };
+
+        console.log(formData);
 
         const response = await api.put('/profile', formData);
 
@@ -148,6 +173,8 @@ const Profile: React.FC = () => {
           initialData={{
             name: user.name,
             email: user.email,
+            openingHours: user.openingHours,
+            finishingHours: user.finishingHours,
           }}
           onSubmit={handleSubmit}
         >
@@ -164,6 +191,16 @@ const Profile: React.FC = () => {
 
           <Input name="name" icon={FiUser} placeholder="Nome" />
           <Input name="email" icon={FiMail} placeholder="E-mail" />
+          <Input
+            name="openingHours"
+            icon={FiClock}
+            placeholder="Hora de abertura"
+          />
+          <Input
+            name="finishingHours"
+            icon={FiClock}
+            placeholder="Hora de fechamento"
+          />
 
           <Input
             containerStyle={{ marginTop: 24 }}

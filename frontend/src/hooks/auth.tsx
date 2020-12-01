@@ -6,6 +6,8 @@ interface User {
   name: string;
   email: string;
   avatar_url: string;
+  openingHours: number;
+  finishingHours: number;
 }
 
 interface AuthState {

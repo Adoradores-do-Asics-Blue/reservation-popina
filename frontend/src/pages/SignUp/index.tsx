@@ -42,12 +42,12 @@ const SignUp: React.FC = () => {
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
           openingHours: Yup.number()
-            .moreThan(-1, 'Deve estar entre 0 horas e 23 horas')
-            .lessThan(24, 'Deve estar entre 0 horas e 23 horas')
+            .min(0, 'Deve ser maior que 0')
+            .max(23, 'Deve ser menor que 23')
             .integer('Deve ser um número inteiro entre 0 e 23'),
           finishingHours: Yup.number()
-            .moreThan(-1, 'Deve estar entre 0 horas e 23 horas')
-            .lessThan(24, 'Deve estar entre 0 horas e 23 horas')
+            .min(0, 'Deve ser maior que 0')
+            .max(23, 'Deve ser menor que 23')
             .integer('Deve ser um número inteiro entre 0 e 23'),
         });
 
