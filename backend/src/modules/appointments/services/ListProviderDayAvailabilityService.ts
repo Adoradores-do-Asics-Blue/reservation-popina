@@ -1,5 +1,5 @@
 import { injectable, inject } from 'tsyringe';
-import { getHours, isAfter } from 'date-fns';
+import { getHours, isAfter, addHours } from 'date-fns';
 
 import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import AppError from '@shared/errors/AppError';
@@ -15,6 +15,7 @@ interface IRequest {
 
 type IResponse = Array<{
   hour: number;
+  qtdAppointmentsInHour: number;
   available: boolean;
 }>;
 
@@ -39,14 +40,16 @@ class ListProviderDayAvailabilityService {
       except_user_id: user_id,
     });
 
-    // const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
-    //   {
-    //     provider_id,
-    //     year,
-    //     month,
-    //     day,
-    //   },
-    // );
+    const appointments = await this.appointmentsRepository.findAllInDayFromProvider(
+      {
+        provider_id,
+        year,
+        month,
+        day,
+      },
+    );
+
+    // console.log(appointments);
 
     if (!users) {
       throw new AppError('User not found.');
@@ -61,18 +64,27 @@ class ListProviderDayAvailabilityService {
       (_, index) => index + open[0].openingHours,
     );
 
-    const currentDate = new Date(Date.now());
+    const DateGMT = new Date(Date.now());
+    const currentDate = addHours(DateGMT, -3);
 
     const availability = eachHourArray.map(hour => {
-      // const hasAppointmentInHour = appointments.find(
-      //   appointment => getHours(appointment.date) === hour,
-      // );
+      const hasAppointmentInHour = appointments.filter(
+        appointment => getHours(appointment.date) === hour,
+      );
 
-      const compareDate = new Date(year, month - 1, day, hour);
+      let qtdAppointmentsInHour = 0;
+
+      if (hasAppointmentInHour.length !== 0) {
+        qtdAppointmentsInHour = hasAppointmentInHour.length;
+      }
+
+      const compareDate = new Date(year, month - 1, day, hour - 3);
 
       return {
         hour,
-        available: isAfter(compareDate, currentDate),
+        qtdAppointmentsInHour,
+        available:
+          isAfter(compareDate, currentDate) && qtdAppointmentsInHour < 5,
       };
     });
 
