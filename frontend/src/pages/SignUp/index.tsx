@@ -1,5 +1,12 @@
 import React, { useCallback, useRef } from 'react';
-import { FiArrowLeft, FiMail, FiUser, FiLock, FiClock } from 'react-icons/fi';
+import {
+  FiArrowLeft,
+  FiMail,
+  FiUser,
+  FiLock,
+  FiClock,
+  FiTag,
+} from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
 import * as Yup from 'yup';
@@ -23,6 +30,7 @@ interface SignUpFormData {
   restaurant: string;
   openingHours: number;
   finishingHours: number;
+  qtdAppointments: number;
 }
 
 const SignUp: React.FC = () => {
@@ -42,23 +50,38 @@ const SignUp: React.FC = () => {
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
           openingHours: Yup.number()
+            .required('A hora de abertura é obrigatório')
             .min(0, 'Deve ser maior que 0')
             .max(23, 'Deve ser menor que 23')
             .integer('Deve ser um número inteiro entre 0 e 23'),
           finishingHours: Yup.number()
+            .required('A hora de fechamento é obrigatório')
             .min(0, 'Deve ser maior que 0')
             .max(23, 'Deve ser menor que 23')
             .integer('Deve ser um número inteiro entre 0 e 23'),
+          qtdAppointments: Yup.number()
+            .required('O limite de horas é obrigatório')
+            .min(0, 'Deve ser maior que 0')
+            .integer('Deve ser um número inteiro'),
         });
 
-        const { name, email, password, openingHours, finishingHours } = data;
+        const {
+          name,
+          email,
+          password,
+          openingHours,
+          finishingHours,
+          qtdAppointments,
+        } = data;
 
         const start = Number(openingHours);
         const finish = Number(finishingHours);
+        const limit = Number(qtdAppointments);
 
         const numberStartFinish = {
           start,
           finish,
+          limit,
         };
 
         const userRestaurant: SignUpFormData = {
@@ -68,6 +91,7 @@ const SignUp: React.FC = () => {
           restaurant: 'true',
           openingHours: numberStartFinish.start,
           finishingHours: numberStartFinish.finish,
+          qtdAppointments: numberStartFinish.limit,
         };
 
         console.log(userRestaurant);
@@ -132,6 +156,12 @@ const SignUp: React.FC = () => {
               icon={FiClock}
               type="tel"
               placeholder="horário de fechamento"
+            />
+            <Input
+              name="qtdAppointments"
+              icon={FiTag}
+              type="tel"
+              placeholder="Limite de vagas por hora"
             />
             <Button type="submit">Cadastrar</Button>
           </Form>

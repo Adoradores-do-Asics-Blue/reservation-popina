@@ -8,6 +8,7 @@ interface User {
   avatar_url: string;
   openingHours: number;
   finishingHours: number;
+  qtdAppointments: number;
 }
 
 interface AuthState {

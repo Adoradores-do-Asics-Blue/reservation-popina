@@ -6,6 +6,7 @@ import {
   FiCamera,
   FiArrowLeft,
   FiClock,
+  FiTag,
 } from 'react-icons/fi';
 import { FormHandles } from '@unform/core';
 import { Form } from '@unform/web';
@@ -32,6 +33,7 @@ interface ProfileFormData {
   password_confirmation: string;
   openingHours: number;
   finishingHours: number;
+  qtdAppointments: number;
 }
 
 const Profile: React.FC = () => {
@@ -61,6 +63,10 @@ const Profile: React.FC = () => {
             .min(0, 'Deve ser maior que 0')
             .max(23, 'Deve ser menor que 23')
             .integer('Deve ser um número inteiro entre 0 e 23'),
+          qtdAppointments: Yup.number()
+            .required('O limite de horas é obrigatório')
+            .min(0, 'Deve ser maior que 0')
+            .integer('Deve ser um número inteiro'),
           old_password: Yup.string(),
           password: Yup.string().when('old_password', {
             is: val => !!val.length,
@@ -88,6 +94,7 @@ const Profile: React.FC = () => {
           password_confirmation,
           openingHours,
           finishingHours,
+          qtdAppointments,
         } = data;
 
         const formData = {
@@ -95,6 +102,7 @@ const Profile: React.FC = () => {
           email,
           openingHours,
           finishingHours,
+          qtdAppointments,
           ...(old_password
             ? {
               old_password,
@@ -175,6 +183,7 @@ const Profile: React.FC = () => {
             email: user.email,
             openingHours: user.openingHours,
             finishingHours: user.finishingHours,
+            qtdAppointments: user.qtdAppointments,
           }}
           onSubmit={handleSubmit}
         >
@@ -200,6 +209,12 @@ const Profile: React.FC = () => {
             name="finishingHours"
             icon={FiClock}
             placeholder="Hora de fechamento"
+          />
+
+          <Input
+            name="qtdAppointments"
+            icon={FiTag}
+            placeholder="Limite de agendamentos por hora"
           />
 
           <Input
