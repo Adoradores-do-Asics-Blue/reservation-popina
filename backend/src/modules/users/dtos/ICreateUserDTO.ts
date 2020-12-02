@@ -6,4 +6,5 @@ export default interface ICreateUserDTO {
   restaurant?: string;
   openingHours?: number;
   finishingHours?: number;
+  qtdAppointments?: number;
 }

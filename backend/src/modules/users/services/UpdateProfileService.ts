@@ -14,6 +14,7 @@ interface IRequest {
   password?: string;
   openingHours?: number;
   finishingHours?: number;
+  qtdAppointments?: number;
 }
 
 @injectable()
@@ -34,6 +35,7 @@ class UpdateProfileService {
     password,
     openingHours,
     finishingHours,
+    qtdAppointments,
   }: IRequest): Promise<User> {
     const user = await this.usersRepository.findById(user_id);
 
@@ -51,6 +53,7 @@ class UpdateProfileService {
     user.email = email;
     user.openingHours = openingHours || 0;
     user.finishingHours = finishingHours || 0;
+    user.qtdAppointments = qtdAppointments || 0;
 
     if (password && !old_password) {
       throw new AppError(

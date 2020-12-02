@@ -37,6 +37,9 @@ class User {
   finishingHours: number;
 
   @Column()
+  qtdAppointments: number;
+
+  @Column()
   avatar: string;
 
   @CreateDateColumn()

@@ -14,6 +14,7 @@ export default class UsersController {
       whatsapp,
       openingHours,
       finishingHours,
+      qtdAppointments,
     } = request.body;
 
     const createUser = container.resolve(CreateUserService);
@@ -26,6 +27,7 @@ export default class UsersController {
       restaurant,
       openingHours,
       finishingHours,
+      qtdAppointments,
     });
 
     return response.json(classToClass(user));

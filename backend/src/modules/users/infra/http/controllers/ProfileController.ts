@@ -25,6 +25,7 @@ export default class ProfileController {
       password,
       openingHours,
       finishingHours,
+      qtdAppointments,
     } = request.body;
 
     const updateProfile = container.resolve(UpdateProfileService);
@@ -37,6 +38,7 @@ export default class ProfileController {
       password,
       openingHours,
       finishingHours,
+      qtdAppointments,
     });
 
     return response.json(classToClass(user));

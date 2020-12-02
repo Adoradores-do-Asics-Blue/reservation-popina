@@ -49,19 +49,21 @@ class ListProviderDayAvailabilityService {
       },
     );
 
-    // console.log(appointments);
-
     if (!users) {
       throw new AppError('User not found.');
     }
 
-    const open = users.filter(user => user.id === provider_id);
+    const restaurant = users.filter(user => user.id === provider_id);
 
-    const size = open[0].finishingHours - open[0].openingHours;
+    const initial = restaurant[0].openingHours;
+    const finish = restaurant[0].finishingHours;
+    const limit = restaurant[0].qtdAppointments;
+
+    const size = finish - initial;
 
     const eachHourArray = Array.from(
       { length: size + 1 },
-      (_, index) => index + open[0].openingHours,
+      (_, index) => index + initial,
     );
 
     const DateGMT = new Date(Date.now());
@@ -84,7 +86,7 @@ class ListProviderDayAvailabilityService {
         hour,
         qtdAppointmentsInHour,
         available:
-          isAfter(compareDate, currentDate) && qtdAppointmentsInHour < 5,
+          isAfter(compareDate, currentDate) && qtdAppointmentsInHour <= limit,
       };
     });
 

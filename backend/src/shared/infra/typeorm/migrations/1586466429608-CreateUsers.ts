@@ -48,6 +48,11 @@ export default class CreateUsers1586466429608 implements MigrationInterface {
             isNullable: true,
           },
           {
+            name: 'qtdAppointments',
+            type: 'int',
+            isNullable: true,
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'now()',

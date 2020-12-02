@@ -15,6 +15,7 @@ interface IRequest {
   restaurant?: string;
   openingHours?: number;
   finishingHours?: number;
+  qtdAppointments?: number;
 }
 
 @injectable()
@@ -38,6 +39,7 @@ class CreateUserService {
     restaurant,
     openingHours,
     finishingHours,
+    qtdAppointments,
   }: IRequest): Promise<User> {
     const checkUserExists = await this.usersRepository.findByEmail(email);
 
@@ -55,6 +57,7 @@ class CreateUserService {
       restaurant,
       openingHours,
       finishingHours,
+      qtdAppointments,
     });
 
     await this.cacheProvider.invalidatePrefix('providers-list');
