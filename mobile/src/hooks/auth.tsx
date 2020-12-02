@@ -13,6 +13,9 @@ interface User {
   email: string;
   name: string;
   avatar_url: string;
+  whatsapp: string;
+  openingHours?: number;
+  finishingHours?: number;
 }
 
 interface AuthState {

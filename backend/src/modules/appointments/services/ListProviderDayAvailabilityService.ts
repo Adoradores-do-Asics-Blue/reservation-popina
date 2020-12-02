@@ -7,7 +7,7 @@ import IAppointmentsRepository from '../repositories/IAppointmentsRepository';
 
 interface IRequest {
   provider_id: string;
-  user_id: string;
+  user_id?: string;
   day: number;
   month: number;
   year: number;
@@ -72,7 +72,7 @@ class ListProviderDayAvailabilityService {
 
       return {
         hour,
-        available: !isAfter(compareDate, currentDate),
+        available: isAfter(compareDate, currentDate),
       };
     });
 

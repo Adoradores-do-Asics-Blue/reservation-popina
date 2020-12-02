@@ -27,6 +27,8 @@ export interface Provider {
   id: string;
   name: string;
   avatar_url: string;
+  openingHours: number;
+  finishingHours: number;
 }
 
 const Dashboard: React.FC = () => {
@@ -75,11 +77,13 @@ const Dashboard: React.FC = () => {
               <ProviderName>{provider.name}</ProviderName>
               <ProviderMeta>
                 <Icon name="calendar" size={14} color="#a18de7" />
-                <ProviderMetaText>Segunda à sexta</ProviderMetaText>
+                <ProviderMetaText>Todos os dias</ProviderMetaText>
               </ProviderMeta>
               <ProviderMeta>
                 <Icon name="clock" size={14} color="#a18de7" />
-                <ProviderMetaText>6h às 00h</ProviderMetaText>
+                <ProviderMetaText>
+                  {provider.openingHours}h às {provider.finishingHours}h
+                </ProviderMetaText>
               </ProviderMeta>
             </ProviderInfo>
           </ProviderContainer>

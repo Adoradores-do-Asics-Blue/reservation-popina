@@ -34,6 +34,7 @@ import {
 interface ProfileFormData {
   name: string;
   email: string;
+  whatsapp: string;
   password: string;
   old_password: string;
   password_confirmation: string;
@@ -45,6 +46,7 @@ const Profile: React.FC = () => {
   const navigation = useNavigation();
 
   const emailInputRef = useRef<TextInput>(null);
+  const whatsappInputRef = useRef<TextInput>(null);
   const passwordInputRef = useRef<TextInput>(null);
   const newPasswordInputRef = useRef<TextInput>(null);
   const confirmPasswordInputRef = useRef<TextInput>(null);
@@ -90,6 +92,7 @@ const Profile: React.FC = () => {
         email: Yup.string()
           .required('E-mail obrigatório')
           .email('Digite um e-mail válido'),
+        whatsapp: Yup.string().required('O numero é obrigatório'),
         old_password: Yup.string(),
         password: Yup.string().when('old_password', {
           is: (val) => !!val.length,
@@ -109,9 +112,12 @@ const Profile: React.FC = () => {
         abortEarly: false,
       });
 
+
+
       const {
         name,
         email,
+        whatsapp,
         old_password,
         password,
         password_confirmation,
@@ -120,6 +126,7 @@ const Profile: React.FC = () => {
       const formData = {
         name,
         email,
+        whatsapp,
         ...(old_password
           ? {
             old_password,
@@ -201,6 +208,20 @@ const Profile: React.FC = () => {
                 name="email"
                 icon="mail"
                 placeholder="E-mail"
+                returnKeyType="next"
+                onSubmitEditing={() => {
+                  passwordInputRef.current?.focus();
+                }}
+              />
+
+              <Input
+                ref={whatsappInputRef}
+                keyboardType="numeric"
+                autoCorrect={false}
+                autoCapitalize="none"
+                name="whatsapp"
+                icon="phone"
+                placeholder="1155957123132"
                 returnKeyType="next"
                 onSubmitEditing={() => {
                   passwordInputRef.current?.focus();
