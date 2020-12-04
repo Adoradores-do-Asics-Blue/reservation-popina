@@ -28,9 +28,9 @@ interface SignUpFormData {
   email: string;
   password: string;
   restaurant: string;
-  openingHours: number;
-  finishingHours: number;
-  qtdAppointments: number;
+  openingHours: string;
+  finishingHours: string;
+  qtdAppointments: string;
 }
 
 const SignUp: React.FC = () => {
@@ -49,20 +49,15 @@ const SignUp: React.FC = () => {
             .required('E-mail obrigatório')
             .email('Digite um e-mail válido'),
           password: Yup.string().min(6, 'No mínimo 6 dígitos'),
-          openingHours: Yup.number()
+          openingHours: Yup.string()
             .required('A hora de abertura é obrigatório')
-            .min(0, 'Deve ser maior que 0')
-            .max(23, 'Deve ser menor que 23')
-            .integer('Deve ser um número inteiro entre 0 e 23'),
-          finishingHours: Yup.number()
+            .matches(/([0-1][0-9])|(2[0-2])/, 'Deve ser um numero de 0 a 23'),
+          finishingHours: Yup.string()
             .required('A hora de fechamento é obrigatório')
-            .min(0, 'Deve ser maior que 0')
-            .max(23, 'Deve ser menor que 23')
-            .integer('Deve ser um número inteiro entre 0 e 23'),
-          qtdAppointments: Yup.number()
+            .matches(/([0-1][0-9])|(2[0-2])/, 'Deve ser um numero de 0 a 23'),
+          qtdAppointments: Yup.string()
             .required('O limite de horas é obrigatório')
-            .min(0, 'Deve ser maior que 0')
-            .integer('Deve ser um número inteiro'),
+            .matches(/^[0-9]*$/, 'Deve ser um numero positivo'),
         });
 
         const {
@@ -74,24 +69,24 @@ const SignUp: React.FC = () => {
           qtdAppointments,
         } = data;
 
-        const start = Number(openingHours);
-        const finish = Number(finishingHours);
-        const limit = Number(qtdAppointments);
+        // const start = string(openingHours);
+        // const finish = string(finishingHours);
+        // const limit = string(qtdAppointments);
 
-        const numberStartFinish = {
-          start,
-          finish,
-          limit,
-        };
+        // const stringStartFinish = {
+        //   start,
+        //   finish,
+        //   limit,
+        // };
 
         const userRestaurant: SignUpFormData = {
           name,
           email,
           password,
           restaurant: 'true',
-          openingHours: numberStartFinish.start,
-          finishingHours: numberStartFinish.finish,
-          qtdAppointments: numberStartFinish.limit,
+          openingHours,
+          finishingHours,
+          qtdAppointments,
         };
 
         console.log(userRestaurant);
